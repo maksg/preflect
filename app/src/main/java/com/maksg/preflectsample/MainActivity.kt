@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.maksg.preflect.Reflekt
+import com.maksg.preflect.reflektMembers
 import kotlin.reflect.typeOf
 import kotlin.time.measureTimedValue
 
@@ -20,10 +21,14 @@ class MainActivity : AppCompatActivity() {
 
         typeOf<List<Int>>().arguments.first().type
 
-        val (reflektMemebers, timeTakenReflekt) = measureTimedValue {
+        val (reflektMemebers2, timeTakenReflekt) = measureTimedValue {
             Reflekt.objects().WithSuperType<View>()
         }
 
-        findViewById<TextView>(R.id.text).text = "$timeTaken\n$timeTakenReflekt"
+        val (preflectMemebers, timeTakenPreflect) = measureTimedValue {
+            reflektMembers
+        }
+
+        findViewById<TextView>(R.id.text).text = "$timeTaken\n$timeTakenReflekt\n$timeTakenPreflect\n$preflectMemebers"
     }
 }

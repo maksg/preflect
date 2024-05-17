@@ -21,21 +21,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = '17'
     }
+
     kotlin {
         sourceSets.debug {
-            kotlin.srcDirs += 'build/generated/preflect/debug/kotlin'
+            kotlin.srcDirs += 'build/generated/ksp/debug/kotlin'
         }
         sourceSets.release {
-            kotlin.srcDirs += 'build/generated/preflect/release/kotlin'
+            kotlin.srcDirs += 'build/generated/ksp/release/kotlin'
         }
     }
+
     namespace 'com.maksg.preflectsample'
 }
 
