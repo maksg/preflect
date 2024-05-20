@@ -8,7 +8,7 @@ import com.maksg.preflect.processor.models.ProcessedFunction
 import com.maksg.preflect.processor.models.preflectClass
 import com.maksg.preflect.processor.utils.annotationTypeParameter
 import com.maksg.preflect.processor.utils.import
-import com.maksg.preflect.processor.utils.mapToName
+import com.maksg.preflect.processor.utils.mapToSignature
 
 internal class PreflectVisitor: KSEmptyVisitor<Unit, ProcessedFunction?>() {
     override fun defaultHandler(node: KSNode, data: Unit): ProcessedFunction? {
@@ -21,8 +21,8 @@ internal class PreflectVisitor: KSEmptyVisitor<Unit, ProcessedFunction?>() {
         return ProcessedFunction(
             function.import(),
             type.qualifiedName?.asString() ?: "",
-            type.getAllProperties().mapToName(),
-            type.getAllFunctions().mapToName()
+            type.getAllProperties().mapToSignature(),
+            type.getAllFunctions().mapToSignature()
         )
     }
 }
