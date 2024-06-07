@@ -1,0 +1,22 @@
+[versions]
+kotlin = "2.0.0"
+preflect = "1.0.0"
+
+[libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0" }
+compose-activity = { module = "androidx.activity:activity-compose", version = "1.9.0" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.05.00" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler" }
+kotlin-gradle-plugin-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
+
+[bundles]
+compose = ["compose-activity", "compose-material3"]
+
+[plugins]
+android-application = { id = "com.android.application", version = "8.4.1" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+preflect-plugin = { id = "com.maksg.preflect.plugin", version.ref = "preflect" }
