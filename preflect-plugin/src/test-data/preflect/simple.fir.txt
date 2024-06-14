@@ -42,8 +42,9 @@ FILE: simple.kt
     }
     public final fun box(): R|kotlin/String| {
         lval excpectedString: R|kotlin/String| = String(foo.bar.Example, number, text, list, count, info, equals, hashCode, toString)
+        R|kotlin/io/println|(R|foo/bar/staticTypeOf|<R|kotlin/Double|>().R|SubstitutionOverride<kotlin/collections/List.get: R|kotlin/String|>|(Int(0)))
         lval types: R|kotlin/collections/List<kotlin/String>| = R|foo/bar/staticTypeOf|<R|foo/bar/Example|>()
-        lval type: R|kotlin/String| = R|<local>/types|.R|SubstitutionOverride<kotlin/collections/List.get: R|kotlin/String|>|(Int(0))
+        lval type: R|kotlin/String| = R|<local>/types|.R|SubstitutionOverride<kotlin/collections/List.get: R|kotlin/String|>|(Int(1))
         ^box when () {
             ==(R|<local>/type|, R|<local>/excpectedString|) ->  {
                 String(OK)

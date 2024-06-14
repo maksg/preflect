@@ -29,14 +29,15 @@ class PreflectTypesSearcher(private var types: MutableList<String>) : IrElementV
     }
 
     override fun visitCall(expression: IrCall) {
+        expression.acceptChildrenVoid(this)
         if (expression.symbol.owner.name != FUNCTION_NAME) return
         val callTypes = expression.typeArguments.mapNotNull { type ->
+            val className = type?.classFqName?.asString() ?: ""
             val typeClass = type?.getClass()
             val properties = typeClass?.properties?.map { it.name.asString() } ?: emptySequence()
             val functions = typeClass?.functions?.map { it.name.asString() } ?: emptySequence()
-            (sequenceOf(type?.classFqName?.asString() ?: "") + properties + functions).joinToString()
+            (sequenceOf(className) + properties + functions).joinToString()
         }
         types.addAll(callTypes)
-        expression.acceptChildrenVoid(this)
     }
 }

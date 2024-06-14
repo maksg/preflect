@@ -111,18 +111,24 @@ FILE fqName:foo.bar fileName:/simple.kt
       BLOCK_BODY
         RETURN type=kotlin.Array<kotlin.String> from='public final fun types (): kotlin.Array<kotlin.String> declared in foo.bar.Preflect'
           VARARG type=kotlin.Array<kotlin.String> varargElementType=kotlin.String
+            CONST String type=kotlin.String value="kotlin.Double, compareTo, compareTo, compareTo, compareTo, compareTo, compareTo, dec, div, div, div, div, div, div, equals, inc, minus, minus, minus, minus, minus, minus, plus, plus, plus, plus, plus, plus, rem, rem, rem, rem, rem, rem, times, times, times, times, times, times, toByte, toChar, toDouble, toFloat, toInt, toLong, toShort, toString, unaryMinus, unaryPlus, hashCode"
             CONST String type=kotlin.String value="foo.bar.Example, number, text, list, count, info, equals, hashCode, toString"
   FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
     BLOCK_BODY
       VAR name:excpectedString type:kotlin.String [val]
         CONST String type=kotlin.String value="foo.bar.Example, number, text, list, count, info, equals, hashCode, toString"
+      CALL 'public final fun println (message: kotlin.Any?): kotlin.Unit declared in kotlin.io' type=kotlin.Unit origin=null
+        message: CALL 'public abstract fun get (index: kotlin.Int): E of kotlin.collections.List declared in kotlin.collections.List' type=kotlin.String origin=GET_ARRAY_ELEMENT
+          $this: CALL 'public final fun staticTypeOf <T> (): kotlin.collections.List<kotlin.String> declared in foo.bar' type=kotlin.collections.List<kotlin.String> origin=null
+            <T>: kotlin.Double
+          index: CONST Int type=kotlin.Int value=0
       VAR name:types type:kotlin.collections.List<kotlin.String> [val]
         CALL 'public final fun staticTypeOf <T> (): kotlin.collections.List<kotlin.String> declared in foo.bar' type=kotlin.collections.List<kotlin.String> origin=null
           <T>: foo.bar.Example
       VAR name:type type:kotlin.String [val]
         CALL 'public abstract fun get (index: kotlin.Int): E of kotlin.collections.List declared in kotlin.collections.List' type=kotlin.String origin=GET_ARRAY_ELEMENT
           $this: GET_VAR 'val types: kotlin.collections.List<kotlin.String> declared in foo.bar.box' type=kotlin.collections.List<kotlin.String> origin=null
-          index: CONST Int type=kotlin.Int value=0
+          index: CONST Int type=kotlin.Int value=1
       RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in foo.bar'
         WHEN type=kotlin.String origin=IF
           BRANCH

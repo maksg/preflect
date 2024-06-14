@@ -21,7 +21,8 @@ inline fun <reified T> staticTypeOf(): List<String> {
 
 fun box(): String {
     val excpectedString = "foo.bar.Example, number, text, list, count, info, equals, hashCode, toString"
+    println(staticTypeOf<Double>()[0])
     val types = staticTypeOf<Example>()
-    val type = types[0]
+    val type = types[1]
     return if (type == excpectedString) { "OK" } else { "Fail: actual = ${type} excpected = ${excpectedString}" }
 }
