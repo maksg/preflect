@@ -11,11 +11,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementVisitorVoid
 import org.jetbrains.kotlin.ir.visitors.acceptChildrenVoid
 import org.jetbrains.kotlin.name.Name
 
-class PreflectTypesSearcher(private var types: MutableList<String>) : IrElementVisitorVoid {
-    companion object {
-        val FUNCTION_NAME = Name.identifier("staticTypeOf")
-    }
-
+class PreflectTypesSearcher(private val functions: Set<Name>, private var types: MutableList<String>) : IrElementVisitorVoid {
     override fun visitFile(declaration: IrFile) {
         declaration.acceptChildrenVoid(this)
     }
@@ -30,7 +26,7 @@ class PreflectTypesSearcher(private var types: MutableList<String>) : IrElementV
 
     override fun visitCall(expression: IrCall) {
         expression.acceptChildrenVoid(this)
-        if (expression.symbol.owner.name != FUNCTION_NAME) return
+        if (!functions.contains(expression.symbol.owner.name)) return
         val callTypes = expression.typeArguments.mapNotNull { type ->
             val className = type?.classFqName?.asString() ?: ""
             val typeClass = type?.getClass()
