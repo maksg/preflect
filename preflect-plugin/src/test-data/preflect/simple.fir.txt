@@ -1,0 +1,56 @@
+FILE: simple.kt
+    package foo.bar
+
+    public final class Preflect : R|kotlin/Any| {
+        public constructor(): R|foo/bar/Preflect| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final fun types(): R|kotlin/Array<kotlin/String>| {
+            ^types R|kotlin/error|(String(Not implemented))
+        }
+
+    }
+    public final class Example : R|kotlin/Any| {
+        public constructor(): R|foo/bar/Example| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final var number: R|kotlin/Double| = Double(2.0)
+            public get(): R|kotlin/Double|
+            public set(value: R|kotlin/Double|): R|kotlin/Unit|
+
+        public final var text: R|kotlin/String| = String(abc)
+            public get(): R|kotlin/String|
+            public set(value: R|kotlin/String|): R|kotlin/Unit|
+
+        public final var list: R|kotlin/collections/List<kotlin/collections/List<kotlin/Int>>| = R|kotlin/collections/listOf|<R|kotlin/collections/List<kotlin/Int>|>()
+            public get(): R|kotlin/collections/List<kotlin/collections/List<kotlin/Int>>|
+            public set(value: R|kotlin/collections/List<kotlin/collections/List<kotlin/Int>>|): R|kotlin/Unit|
+
+        public final fun count(): R|kotlin/Double| {
+            ^count this@R|foo/bar/Example|.R|foo/bar/Example.number|
+        }
+
+        public final fun info(): R|kotlin/String| {
+            ^info String(test)
+        }
+
+    }
+    @R|com/maksg/preflect/runtime/annotation/PreflectSearchTypes|() public final inline fun <reified T> staticTypeOf(): R|kotlin/collections/List<kotlin/String>| {
+        ^staticTypeOf R|foo/bar/Preflect.Preflect|().R|foo/bar/Preflect.types|().R|kotlin/collections/toList|<R|kotlin/String|>()
+    }
+    public final fun box(): R|kotlin/String| {
+        lval excpectedString: R|kotlin/String| = String(foo.bar.Example, number, text, list, count, info, equals, hashCode, toString)
+        lval types: R|kotlin/collections/List<kotlin/String>| = R|foo/bar/staticTypeOf|<R|foo/bar/Example|>()
+        lval type: R|kotlin/String| = R|<local>/types|.R|SubstitutionOverride<kotlin/collections/List.get: R|kotlin/String|>|(Int(0))
+        ^box when () {
+            ==(R|<local>/type|, R|<local>/excpectedString|) ->  {
+                String(OK)
+            }
+            else ->  {
+                <strcat>(String(Fail: actual = ), R|<local>/type|, String( excpected = ), R|<local>/excpectedString|)
+            }
+        }
+
+    }

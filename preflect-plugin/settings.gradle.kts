@@ -5,3 +5,6 @@ dependencyResolutionManagement {
         }
     }
 }
+
+include(":preflect-runtime-plugin")
+project(":preflect-runtime-plugin").projectDir = file("../preflect-runtime")

@@ -10,6 +10,12 @@ class PreflectPluginRegistrar: CompilerPluginRegistrar() {
         get() = true
 
     override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
-        IrGenerationExtension.registerExtension(PreflectIrGenerationExtension())
+        register(this, configuration)
+    }
+
+    companion object {
+        fun register(storage: ExtensionStorage, configuration: CompilerConfiguration) = with(storage) {
+            IrGenerationExtension.registerExtension(PreflectIrGenerationExtension())
+        }
     }
 }

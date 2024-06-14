@@ -5,17 +5,22 @@ preflect = "1.0.0"
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0" }
 compose-activity = { module = "androidx.activity:activity-compose", version = "1.9.0" }
-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.05.00" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.06.00" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
+junit = { module = "junit:junit", version = "4.13.2" }
+kotlin-annotations-jvm = { module = "org.jetbrains.kotlin:kotlin-annotations-jvm" }
 kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler" }
+kotlin-compiler-internal-test-framework = { module = "org.jetbrains.kotlin:kotlin-compiler-internal-test-framework" }
 kotlin-gradle-plugin-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api" }
+kotlin-script-runtime = { module = "org.jetbrains.kotlin:kotlin-script-runtime" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
 [bundles]
 compose = ["compose-activity", "compose-material3"]
 
 [plugins]
-android-application = { id = "com.android.application", version = "8.4.1" }
+android-application = { id = "com.android.application", version = "8.4.2" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
