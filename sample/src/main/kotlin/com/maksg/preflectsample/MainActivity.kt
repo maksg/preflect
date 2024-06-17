@@ -21,8 +21,12 @@ class Preflect {
 
 class MainActivity : AppCompatActivity() {
     @PreflectSearchTypes
-    inline fun <reified T> staticTypeOf(): String {
-        return Preflect().types().toList().joinToString()
+    inline fun <reified T> staticTypeOf(): List<String> {
+        return Preflect().types().toList()
+    }
+
+    private inline fun <reified T> replacedTypeOf(): List<String> {
+        return Preflect().types().toList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +39,8 @@ class MainActivity : AppCompatActivity() {
             findViewById(android.R.id.content)
         ).isAppearanceLightStatusBars = true
 
-        val result = staticTypeOf<Int>()
-        val result2 = staticTypeOf<List<List<Boolean>>>()
+        val result = staticTypeOf<Int>()[0]
+        val result2 = replacedTypeOf<List<List<Boolean>>>()[1]
 
         setContent {
             MaterialTheme {
@@ -44,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Type $result")
+                    Text("[Type $result]\n[Type $result2]")
                 }
             }
         }

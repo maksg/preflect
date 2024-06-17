@@ -23,6 +23,10 @@ repositories {
     mavenCentral()
 }
 
+preflect {
+    function = "replacedTypeOf"
+}
+
 dependencies {
     implementation(dependencies.platform(libs.compose.bom))
     implementation(libs.androidx.appcompat)

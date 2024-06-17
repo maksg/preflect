@@ -20,7 +20,7 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 compose = ["compose-activity", "compose-material3"]
 
 [plugins]
-android-application = { id = "com.android.application", version = "8.4.2" }
+android-application = { id = "com.android.application", version = "8.5.0-rc02" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
