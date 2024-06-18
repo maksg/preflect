@@ -25,6 +25,7 @@ repositories {
 
 preflect {
     function = "replacedTypeOf"
+    replace = true
 }
 
 dependencies {

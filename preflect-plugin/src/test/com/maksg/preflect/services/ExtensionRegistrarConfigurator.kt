@@ -16,7 +16,9 @@ class ExtensionRegistrarConfigurator(testServices: TestServices) : EnvironmentCo
         configuration: CompilerConfiguration
     ) {
         val function = configuration.get(PreflectCommandLineProcessor.FUNCTION_COMPILER_KEY, "")
+        val replace = configuration.get(PreflectCommandLineProcessor.REPLACE_COMPILER_KEY, "")
+        val shouldReplaceImplementation = replace.toBoolean()
         val gradleFunctions = listOf(Name.identifier(function))
-        IrGenerationExtension.registerExtension(PreflectIrGenerationExtension(gradleFunctions))
+        IrGenerationExtension.registerExtension(PreflectIrGenerationExtension(gradleFunctions, shouldReplaceImplementation))
     }
 }

@@ -9,17 +9,9 @@ import org.jetbrains.kotlin.ir.types.typeWith
 import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitorVoid
 import org.jetbrains.kotlin.ir.visitors.acceptChildrenVoid
-import org.jetbrains.kotlin.name.CallableId
-import org.jetbrains.kotlin.name.ClassId
-import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 
-class PreflectTypesIrBodyGenerator(context: IrPluginContext, private val types: List<String>) : IrElementVisitorVoid {
-    companion object {
-        private val PREFLECT_ID = ClassId(FqName.fromSegments(listOf("com", "maksg", "preflect")), Name.identifier("Preflect"))
-        private val TYPES_ID = CallableId(PREFLECT_ID, Name.identifier("types"))
-    }
-
+class PreflectTypesIrBodyGenerator(context: IrPluginContext, private val functionNames: List<Name>, private val types: List<String>) : IrElementVisitorVoid {
     private val irFactory = context.irFactory
     private val irBuiltIns = context.irBuiltIns
 
@@ -32,7 +24,7 @@ class PreflectTypesIrBodyGenerator(context: IrPluginContext, private val types: 
     }
 
     override fun visitSimpleFunction(declaration: IrSimpleFunction) {
-        if (declaration.name != TYPES_ID.callableName) return
+        if (!functionNames.contains(declaration.name)) return
         declaration.body = generateBodyForFunction(declaration)
     }
 

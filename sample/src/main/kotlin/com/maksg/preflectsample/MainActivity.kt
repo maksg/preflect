@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         return Preflect().types().toList()
     }
 
-    private inline fun <reified T> replacedTypeOf(): List<String> {
-        return Preflect().types().toList()
+    private inline fun <reified T> replacedTypeOf(): Array<String> {
+        return arrayOf("Empty", "Not Implemented")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

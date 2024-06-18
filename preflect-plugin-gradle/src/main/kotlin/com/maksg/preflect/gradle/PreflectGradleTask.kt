@@ -11,9 +11,14 @@ abstract class PreflectGradleTask : DefaultTask() {
     @get:Input
     abstract val function: Property<String>
 
+    @get:Optional
+    @get:Input
+    abstract val replace: Property<Boolean>
+
     @TaskAction
     fun preflect() {
         val functionName = function.orNull
-        println("pReflect $functionName")
+        val shouldReplace = replace.orNull
+        println("pReflect $functionName replace=$shouldReplace")
     }
 }

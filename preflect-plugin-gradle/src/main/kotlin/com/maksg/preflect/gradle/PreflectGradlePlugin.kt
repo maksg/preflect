@@ -13,7 +13,8 @@ class PreflectGradlePlugin : KotlinCompilerPluginSupportPlugin {
         val extension = project.extensions.getByType(PreflectGradleExtension::class.java)
         return project.provider {
             listOf(
-                SubpluginOption("function", extension.function ?: "")
+                SubpluginOption("function", extension.function ?: ""),
+                SubpluginOption("replace", (extension.replace ?: false).toString())
             )
         }
     }
@@ -25,6 +26,7 @@ class PreflectGradlePlugin : KotlinCompilerPluginSupportPlugin {
         target.afterEvaluate {
             task.configure { target ->
                 target.function.set(extension.function)
+                target.replace.set(extension.replace)
             }
         }
     }
