@@ -11,6 +11,7 @@ junit = { module = "junit:junit", version = "4.13.2" }
 kotlin-annotations-jvm = { module = "org.jetbrains.kotlin:kotlin-annotations-jvm" }
 kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler" }
 kotlin-compiler-internal-test-framework = { module = "org.jetbrains.kotlin:kotlin-compiler-internal-test-framework" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-gradle-plugin-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api" }
 kotlin-script-runtime = { module = "org.jetbrains.kotlin:kotlin-script-runtime" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
@@ -20,7 +21,7 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 compose = ["compose-activity", "compose-material3"]
 
 [plugins]
-android-application = { id = "com.android.application", version = "8.5.0-rc02" }
+android-application = { id = "com.android.application", version = "8.5.0" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

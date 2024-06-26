@@ -16,13 +16,25 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.maksg.preflect.runtime.annotation.PreflectSearchTypes
 
 class Preflect {
-    fun types(): Array<String> = error("Not implemented")
+    inline fun <reified T> members(): Array<String> = when (T::class) {
+        Double::class -> arrayOf("kotlin.Double", "kotlin.Double2")
+        Example::class -> arrayOf("kotlin.Example", "kotlin.Example2")
+        else -> error("Not implemented")
+    }
+}
+
+class Example {
+    var number: Double = 2.0
+    var text: String = "abc"
+    var list: List<List<Int>> = listOf()
+    fun count(): Double { return number }
+    fun info(): String { return "test" }
 }
 
 class MainActivity : AppCompatActivity() {
     @PreflectSearchTypes
     inline fun <reified T> staticTypeOf(): List<String> {
-        return Preflect().types().toList()
+        return Preflect().members<T>().toList()
     }
 
     private inline fun <reified T> replacedTypeOf(): Array<String> {
@@ -39,8 +51,10 @@ class MainActivity : AppCompatActivity() {
             findViewById(android.R.id.content)
         ).isAppearanceLightStatusBars = true
 
-        val result = staticTypeOf<Int>()[0]
-        val result2 = replacedTypeOf<List<List<Boolean>>>()[1]
+        val doubleMembers = staticTypeOf<Double>()
+        val exampleMembers = replacedTypeOf<Example>().toList()
+        val doubleReflect = Double::class.java.kotlin.members.map { it.name }
+        val exampleReflect = Example::class.java.kotlin.members.map { it.name }
 
         setContent {
             MaterialTheme {
@@ -48,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                     Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("[Type $result]\n[Type $result2]")
+                    Text("Double pReflect\n$doubleMembers\nDouble Reflect\n$doubleReflect\n\nExample pReflect\n$exampleMembers\nExample Reflect\n$exampleReflect")
                 }
             }
         }

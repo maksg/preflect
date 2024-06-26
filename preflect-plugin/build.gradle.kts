@@ -29,9 +29,9 @@ dependencies {
         testImplementation(it)
     }
 
-    testImplementation(libs.kotlin.test)
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.compiler.internal.test.framework)
+    testImplementation(libs.kotlin.test)
     testImplementation(projects.preflectRuntimePlugin)
 
     testRuntimeOnly(libs.kotlin.annotations.jvm)

@@ -32,5 +32,6 @@ dependencies {
     implementation(dependencies.platform(libs.compose.bom))
     implementation(libs.androidx.appcompat)
     implementation(libs.bundles.compose)
+    implementation(libs.kotlin.reflect)
     implementation(projects.preflectRuntime)
 }

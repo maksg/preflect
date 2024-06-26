@@ -6,8 +6,16 @@ FILE: simple.kt
             super<R|kotlin/Any|>()
         }
 
-        public final fun types(): R|kotlin/Array<kotlin/String>| {
-            ^types R|kotlin/error|(String(Not implemented))
+        public final inline fun <reified T> members(): R|kotlin/Array<kotlin/String>| {
+            ^members when (<getClass>(R|T|)) {
+                ==($subj$, <getClass>(Q|kotlin/Double|)) ->  {
+                    R|kotlin/arrayOf|<R|kotlin/String|>(vararg(String(kotlin.Double), String(kotlin.Double2)))
+                }
+                else ->  {
+                    R|kotlin/error|(String(Not implemented))
+                }
+            }
+
         }
 
     }
@@ -38,19 +46,18 @@ FILE: simple.kt
 
     }
     @R|com/maksg/preflect/runtime/annotation/PreflectSearchTypes|() public final inline fun <reified T> staticTypeOf(): R|kotlin/collections/List<kotlin/String>| {
-        ^staticTypeOf R|foo/bar/Preflect.Preflect|().R|foo/bar/Preflect.types|().R|kotlin/collections/toList|<R|kotlin/String|>()
+        ^staticTypeOf R|foo/bar/Preflect.Preflect|().R|foo/bar/Preflect.members|<R|T|>().R|kotlin/collections/toList|<R|kotlin/String|>()
     }
     public final fun box(): R|kotlin/String| {
-        lval excpectedString: R|kotlin/String| = String(foo.bar.Example, number, text, list, count, info, equals, hashCode, toString)
+        lval expectedList: R|kotlin/collections/List<kotlin/String>| = R|kotlin/collections/listOf|<R|kotlin/String|>(vararg(String(number), String(text), String(list), String(count), String(info), String(equals), String(hashCode), String(toString)))
         R|kotlin/io/println|(R|foo/bar/staticTypeOf|<R|kotlin/Double|>().R|SubstitutionOverride<kotlin/collections/List.get: R|kotlin/String|>|(Int(0)))
-        lval types: R|kotlin/collections/List<kotlin/String>| = R|foo/bar/staticTypeOf|<R|foo/bar/Example|>()
-        lval type: R|kotlin/String| = R|<local>/types|.R|SubstitutionOverride<kotlin/collections/List.get: R|kotlin/String|>|(Int(1))
+        lval members: R|kotlin/collections/List<kotlin/String>| = R|foo/bar/staticTypeOf|<R|foo/bar/Example|>()
         ^box when () {
-            ==(R|<local>/type|, R|<local>/excpectedString|) ->  {
+            ==(R|<local>/members|, R|<local>/expectedList|) ->  {
                 String(OK)
             }
             else ->  {
-                <strcat>(String(Fail: actual = ), R|<local>/type|, String( excpected = ), R|<local>/excpectedString|)
+                <strcat>(String(Fail: actual = ), R|<local>/members|, String( expected = ), R|<local>/expectedList|)
             }
         }
 

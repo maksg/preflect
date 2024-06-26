@@ -106,35 +106,115 @@ FILE fqName:foo.bar fileName:/simple.kt
       overridden:
         public open fun toString (): kotlin.String declared in kotlin.Any
       $this: VALUE_PARAMETER name:<this> type:kotlin.Any
-    FUN name:types visibility:public modality:FINAL <> ($this:foo.bar.Preflect) returnType:kotlin.Array<kotlin.String>
+    FUN name:members visibility:public modality:FINAL <T> ($this:foo.bar.Preflect) returnType:kotlin.Array<kotlin.String> [inline]
+      TYPE_PARAMETER name:T index:0 variance: superTypes:[kotlin.Any?] reified:true
       $this: VALUE_PARAMETER name:<this> type:foo.bar.Preflect
       BLOCK_BODY
-        RETURN type=kotlin.Array<kotlin.String> from='public final fun types (): kotlin.Array<kotlin.String> declared in foo.bar.Preflect'
-          VARARG type=kotlin.Array<kotlin.String> varargElementType=kotlin.String
-            CONST String type=kotlin.String value="kotlin.Double, compareTo, compareTo, compareTo, compareTo, compareTo, compareTo, dec, div, div, div, div, div, div, equals, inc, minus, minus, minus, minus, minus, minus, plus, plus, plus, plus, plus, plus, rem, rem, rem, rem, rem, rem, times, times, times, times, times, times, toByte, toChar, toDouble, toFloat, toInt, toLong, toShort, toString, unaryMinus, unaryPlus, hashCode"
-            CONST String type=kotlin.String value="foo.bar.Example, number, text, list, count, info, equals, hashCode, toString"
+        RETURN type=kotlin.Nothing from='public final fun members <T> (): kotlin.Array<kotlin.String> declared in foo.bar.Preflect'
+          BLOCK type=kotlin.Array<kotlin.String> origin=null
+            VAR IR_TEMPORARY_VARIABLE name:tmp_0 type:kotlin.reflect.KClass<T of foo.bar.Preflect.members> [val]
+              CLASS_REFERENCE 'TYPE_PARAMETER name:T index:0 variance: superTypes:[kotlin.Any?] reified:true' type=kotlin.reflect.KClass<T of foo.bar.Preflect.members>
+            WHEN type=kotlin.Array<kotlin.String> origin=null
+              BRANCH
+                if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ
+                  arg0: GET_VAR 'val tmp_0: kotlin.reflect.KClass<T of foo.bar.Preflect.members> declared in foo.bar.Preflect.members' type=kotlin.reflect.KClass<T of foo.bar.Preflect.members> origin=null
+                  arg1: CLASS_REFERENCE 'CLASS IR_EXTERNAL_DECLARATION_STUB CLASS name:Double modality:FINAL visibility:public superTypes:[kotlin.Number; kotlin.Comparable<kotlin.Double>; java.io.Serializable]' type=kotlin.reflect.KClass<kotlin.Double>
+                then: VARARG type=kotlin.Array<kotlin.String> varargElementType=kotlin.String
+                  CONST String type=kotlin.String value="compareTo"
+                  CONST String type=kotlin.String value="compareTo"
+                  CONST String type=kotlin.String value="compareTo"
+                  CONST String type=kotlin.String value="compareTo"
+                  CONST String type=kotlin.String value="compareTo"
+                  CONST String type=kotlin.String value="compareTo"
+                  CONST String type=kotlin.String value="dec"
+                  CONST String type=kotlin.String value="div"
+                  CONST String type=kotlin.String value="div"
+                  CONST String type=kotlin.String value="div"
+                  CONST String type=kotlin.String value="div"
+                  CONST String type=kotlin.String value="div"
+                  CONST String type=kotlin.String value="div"
+                  CONST String type=kotlin.String value="equals"
+                  CONST String type=kotlin.String value="inc"
+                  CONST String type=kotlin.String value="minus"
+                  CONST String type=kotlin.String value="minus"
+                  CONST String type=kotlin.String value="minus"
+                  CONST String type=kotlin.String value="minus"
+                  CONST String type=kotlin.String value="minus"
+                  CONST String type=kotlin.String value="minus"
+                  CONST String type=kotlin.String value="plus"
+                  CONST String type=kotlin.String value="plus"
+                  CONST String type=kotlin.String value="plus"
+                  CONST String type=kotlin.String value="plus"
+                  CONST String type=kotlin.String value="plus"
+                  CONST String type=kotlin.String value="plus"
+                  CONST String type=kotlin.String value="rem"
+                  CONST String type=kotlin.String value="rem"
+                  CONST String type=kotlin.String value="rem"
+                  CONST String type=kotlin.String value="rem"
+                  CONST String type=kotlin.String value="rem"
+                  CONST String type=kotlin.String value="rem"
+                  CONST String type=kotlin.String value="times"
+                  CONST String type=kotlin.String value="times"
+                  CONST String type=kotlin.String value="times"
+                  CONST String type=kotlin.String value="times"
+                  CONST String type=kotlin.String value="times"
+                  CONST String type=kotlin.String value="times"
+                  CONST String type=kotlin.String value="toByte"
+                  CONST String type=kotlin.String value="toChar"
+                  CONST String type=kotlin.String value="toDouble"
+                  CONST String type=kotlin.String value="toFloat"
+                  CONST String type=kotlin.String value="toInt"
+                  CONST String type=kotlin.String value="toLong"
+                  CONST String type=kotlin.String value="toShort"
+                  CONST String type=kotlin.String value="toString"
+                  CONST String type=kotlin.String value="unaryMinus"
+                  CONST String type=kotlin.String value="unaryPlus"
+                  CONST String type=kotlin.String value="hashCode"
+              BRANCH
+                if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ
+                  arg0: GET_VAR 'val tmp_0: kotlin.reflect.KClass<T of foo.bar.Preflect.members> declared in foo.bar.Preflect.members' type=kotlin.reflect.KClass<T of foo.bar.Preflect.members> origin=null
+                  arg1: CLASS_REFERENCE 'CLASS CLASS name:Example modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.reflect.KClass<foo.bar.Example>
+                then: VARARG type=kotlin.Array<kotlin.String> varargElementType=kotlin.String
+                  CONST String type=kotlin.String value="number"
+                  CONST String type=kotlin.String value="text"
+                  CONST String type=kotlin.String value="list"
+                  CONST String type=kotlin.String value="count"
+                  CONST String type=kotlin.String value="info"
+                  CONST String type=kotlin.String value="equals"
+                  CONST String type=kotlin.String value="hashCode"
+                  CONST String type=kotlin.String value="toString"
+              BRANCH
+                if: CONST Boolean type=kotlin.Boolean value=true
+                then: CALL 'public final fun error (message: kotlin.Any): kotlin.Nothing declared in kotlin' type=kotlin.Nothing origin=null
+                  message: CONST String type=kotlin.String value="This type wasn't preflected"
   FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
     BLOCK_BODY
-      VAR name:excpectedString type:kotlin.String [val]
-        CONST String type=kotlin.String value="foo.bar.Example, number, text, list, count, info, equals, hashCode, toString"
+      VAR name:expectedList type:kotlin.collections.List<kotlin.String> [val]
+        CALL 'public final fun listOf <T> (vararg elements: T of kotlin.collections.listOf): kotlin.collections.List<T of kotlin.collections.listOf> declared in kotlin.collections' type=kotlin.collections.List<kotlin.String> origin=null
+          <T>: kotlin.String
+          elements: VARARG type=kotlin.Array<out kotlin.String> varargElementType=kotlin.String
+            CONST String type=kotlin.String value="number"
+            CONST String type=kotlin.String value="text"
+            CONST String type=kotlin.String value="list"
+            CONST String type=kotlin.String value="count"
+            CONST String type=kotlin.String value="info"
+            CONST String type=kotlin.String value="equals"
+            CONST String type=kotlin.String value="hashCode"
+            CONST String type=kotlin.String value="toString"
       CALL 'public final fun println (message: kotlin.Any?): kotlin.Unit declared in kotlin.io' type=kotlin.Unit origin=null
         message: CALL 'public abstract fun get (index: kotlin.Int): E of kotlin.collections.List declared in kotlin.collections.List' type=kotlin.String origin=GET_ARRAY_ELEMENT
           $this: CALL 'public final fun staticTypeOf <T> (): kotlin.collections.List<kotlin.String> declared in foo.bar' type=kotlin.collections.List<kotlin.String> origin=null
             <T>: kotlin.Double
           index: CONST Int type=kotlin.Int value=0
-      VAR name:types type:kotlin.collections.List<kotlin.String> [val]
+      VAR name:members type:kotlin.collections.List<kotlin.String> [val]
         CALL 'public final fun staticTypeOf <T> (): kotlin.collections.List<kotlin.String> declared in foo.bar' type=kotlin.collections.List<kotlin.String> origin=null
           <T>: foo.bar.Example
-      VAR name:type type:kotlin.String [val]
-        CALL 'public abstract fun get (index: kotlin.Int): E of kotlin.collections.List declared in kotlin.collections.List' type=kotlin.String origin=GET_ARRAY_ELEMENT
-          $this: GET_VAR 'val types: kotlin.collections.List<kotlin.String> declared in foo.bar.box' type=kotlin.collections.List<kotlin.String> origin=null
-          index: CONST Int type=kotlin.Int value=1
       RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in foo.bar'
         WHEN type=kotlin.String origin=IF
           BRANCH
             if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ
-              arg0: GET_VAR 'val type: kotlin.String declared in foo.bar.box' type=kotlin.String origin=null
-              arg1: GET_VAR 'val excpectedString: kotlin.String declared in foo.bar.box' type=kotlin.String origin=null
+              arg0: GET_VAR 'val members: kotlin.collections.List<kotlin.String> declared in foo.bar.box' type=kotlin.collections.List<kotlin.String> origin=null
+              arg1: GET_VAR 'val expectedList: kotlin.collections.List<kotlin.String> declared in foo.bar.box' type=kotlin.collections.List<kotlin.String> origin=null
             then: BLOCK type=kotlin.String origin=null
               CONST String type=kotlin.String value="OK"
           BRANCH
@@ -142,9 +222,9 @@ FILE fqName:foo.bar fileName:/simple.kt
             then: BLOCK type=kotlin.String origin=null
               STRING_CONCATENATION type=kotlin.String
                 CONST String type=kotlin.String value="Fail: actual = "
-                GET_VAR 'val type: kotlin.String declared in foo.bar.box' type=kotlin.String origin=null
-                CONST String type=kotlin.String value=" excpected = "
-                GET_VAR 'val excpectedString: kotlin.String declared in foo.bar.box' type=kotlin.String origin=null
+                GET_VAR 'val members: kotlin.collections.List<kotlin.String> declared in foo.bar.box' type=kotlin.collections.List<kotlin.String> origin=null
+                CONST String type=kotlin.String value=" expected = "
+                GET_VAR 'val expectedList: kotlin.collections.List<kotlin.String> declared in foo.bar.box' type=kotlin.collections.List<kotlin.String> origin=null
   FUN name:staticTypeOf visibility:public modality:FINAL <T> () returnType:kotlin.collections.List<kotlin.String> [inline]
     annotations:
       PreflectSearchTypes
@@ -153,5 +233,6 @@ FILE fqName:foo.bar fileName:/simple.kt
       RETURN type=kotlin.Nothing from='public final fun staticTypeOf <T> (): kotlin.collections.List<kotlin.String> declared in foo.bar'
         CALL 'public final fun toList <T> (): kotlin.collections.List<T of kotlin.collections.toList> declared in kotlin.collections' type=kotlin.collections.List<kotlin.String> origin=null
           <T>: kotlin.String
-          $receiver: CALL 'public final fun types (): kotlin.Array<kotlin.String> declared in foo.bar.Preflect' type=kotlin.Array<kotlin.String> origin=null
+          $receiver: CALL 'public final fun members <T> (): kotlin.Array<kotlin.String> declared in foo.bar.Preflect' type=kotlin.Array<kotlin.String> origin=null
+            <T>: T of foo.bar.staticTypeOf
             $this: CONSTRUCTOR_CALL 'public constructor <init> () declared in foo.bar.Preflect' type=foo.bar.Preflect origin=null

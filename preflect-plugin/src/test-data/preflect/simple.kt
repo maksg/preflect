@@ -3,7 +3,10 @@ package foo.bar
 import com.maksg.preflect.runtime.annotation.PreflectSearchTypes
 
 class Preflect {
-    fun types(): Array<String> = error("Not implemented")
+    inline fun <reified T> members(): Array<String> = when (T::class) {
+        Double::class -> arrayOf("kotlin.Double", "kotlin.Double2")
+        else -> error("Not implemented")
+    }
 }
 
 class Example {
@@ -16,13 +19,12 @@ class Example {
 
 @PreflectSearchTypes
 inline fun <reified T> staticTypeOf(): List<String> {
-    return Preflect().types().toList()
+    return Preflect().members<T>().toList()
 }
 
 fun box(): String {
-    val excpectedString = "foo.bar.Example, number, text, list, count, info, equals, hashCode, toString"
+    val expectedList = listOf("number", "text", "list", "count", "info", "equals", "hashCode", "toString")
     println(staticTypeOf<Double>()[0])
-    val types = staticTypeOf<Example>()
-    val type = types[1]
-    return if (type == excpectedString) { "OK" } else { "Fail: actual = ${type} excpected = ${excpectedString}" }
+    val members = staticTypeOf<Example>()
+    return if (members == expectedList) { "OK" } else { "Fail: actual = ${members} expected = ${expectedList}" }
 }
