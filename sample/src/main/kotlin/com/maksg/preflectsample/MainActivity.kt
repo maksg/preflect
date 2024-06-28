@@ -16,6 +16,11 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.maksg.preflect.runtime.annotation.PreflectSearchTypes
 
 class Preflect {
+    inline fun <reified T> name(): String = when (T::class) {
+        Double::class -> "kotlin.Double"
+        Example::class -> "kotlin.Example"
+        else -> error("Not implemented")
+    }
     inline fun <reified T> members(): Array<String> = when (T::class) {
         Double::class -> arrayOf("kotlin.Double", "kotlin.Double2")
         Example::class -> arrayOf("kotlin.Example", "kotlin.Example2")
@@ -33,11 +38,16 @@ class Example {
 
 class MainActivity : AppCompatActivity() {
     @PreflectSearchTypes
-    inline fun <reified T> staticTypeOf(): List<String> {
+    inline fun <reified T> staticNameOf(): String {
+        return Preflect().name<T>()
+    }
+
+    @PreflectSearchTypes
+    inline fun <reified T> staticMembersOf(): List<String> {
         return Preflect().members<T>().toList()
     }
 
-    private inline fun <reified T> replacedTypeOf(): Array<String> {
+    private inline fun <reified T> replacedMembersOf(): Array<String> {
         return arrayOf("Empty", "Not Implemented")
     }
 
@@ -51,8 +61,11 @@ class MainActivity : AppCompatActivity() {
             findViewById(android.R.id.content)
         ).isAppearanceLightStatusBars = true
 
-        val doubleMembers = staticTypeOf<Double>()
-        val exampleMembers = replacedTypeOf<Example>().toList()
+        val mapName = staticNameOf<Map<Double, List<Example>>>()
+        val doubleName = staticNameOf<Double>()
+        val exampleName = staticNameOf<Double>()
+        val doubleMembers = staticMembersOf<Double>()
+        val exampleMembers = replacedMembersOf<Example>().toList()
         val doubleReflect = Double::class.java.kotlin.members.map { it.name }
         val exampleReflect = Example::class.java.kotlin.members.map { it.name }
 
@@ -62,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Double pReflect\n$doubleMembers\nDouble Reflect\n$doubleReflect\n\nExample pReflect\n$exampleMembers\nExample Reflect\n$exampleReflect")
+                    Text("$mapName\n\n$doubleName pReflect\n$doubleMembers\n$doubleName Reflect\n$doubleReflect\n\n$exampleName pReflect\n$exampleMembers\n$exampleName Reflect\n$exampleReflect")
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.maksg.preflect.ir
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.lower.createIrBuilder
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
+import org.jetbrains.kotlin.ir.builders.IrBlockBuilder
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.createTmpVariable
 import org.jetbrains.kotlin.ir.builders.irBlock
@@ -18,8 +19,10 @@ import org.jetbrains.kotlin.ir.builders.irVararg
 import org.jetbrains.kotlin.ir.builders.irWhen
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrBody
+import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.*
 import org.jetbrains.kotlin.ir.symbols.IrClassifierSymbol
+import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.types.typeWith
 import org.jetbrains.kotlin.ir.util.toIrConst
@@ -29,8 +32,9 @@ import org.jetbrains.kotlin.name.Name
 
 class PreflectTypesIrBodyGenerator(
     context: IrPluginContext,
-    private val functionNames: List<Name>,
-    private val types: Map<IrClassifierSymbol, Sequence<String>>
+    private val nameFunctionNames: List<Name>,
+    private val membersFunctionNames: List<Name>,
+    private val containers: List<PreflectClassContainer>
 ) : IrElementVisitorVoid {
     private val irBuiltIns = context.irBuiltIns
 
@@ -43,24 +47,24 @@ class PreflectTypesIrBodyGenerator(
     }
 
     override fun visitSimpleFunction(declaration: IrSimpleFunction) {
-        if (!functionNames.contains(declaration.name)) return
-        declaration.body = generateBodyForFunction(declaration)
+        if (nameFunctionNames.contains(declaration.name)) {
+            declaration.body = generateNameBody(declaration)
+        } else if (membersFunctionNames.contains(declaration.name)) {
+            declaration.body = generateMembersBody(declaration)
+        }
     }
 
-    private fun generateBodyForFunction(function: IrSimpleFunction): IrBody {
-        val elementType = irBuiltIns.stringType
-        val arrayType = irBuiltIns.arrayClass.typeWith(elementType)
+    private fun generateBody(function: IrSimpleFunction, type: IrType, valueTransformer: IrBlockBuilder.(PreflectClassContainer) -> IrExpression): IrBody {
         val typeParameterT = function.typeParameters.first()
         val irBuilder = irBuiltIns.createIrBuilder(function.symbol)
         return irBuilder.irBlockBody {
             +irReturn(
                 irBlock {
                     val tmp = createTmpVariable(kClassReference(typeParameterT.defaultType.classifier))
-                    val branches = types.map { type ->
-                        val elements = type.value.map { it.toIrConst(elementType) }.toList()
+                    val branches = containers.map { container ->
                         irBranch(
-                            irEquals(irGet(tmp), kClassReference(type.key)),
-                            irVararg(elementType, elements)
+                            irEquals(irGet(tmp), kClassReference(container.symbol)),
+                            valueTransformer(container)
                         )
                     } + listOf(
                         irElseBranch(
@@ -69,9 +73,25 @@ class PreflectTypesIrBodyGenerator(
                             }
                         )
                     )
-                    +irWhen(arrayType, branches)
+                    +irWhen(type, branches)
                 }
             )
+        }
+    }
+
+    private fun generateNameBody(function: IrSimpleFunction): IrBody {
+        val type = irBuiltIns.stringType
+        return generateBody(function, type) { container ->
+            irString(container.name ?: "")
+        }
+    }
+
+    private fun generateMembersBody(function: IrSimpleFunction): IrBody {
+        val elementType = irBuiltIns.stringType
+        val arrayType = irBuiltIns.arrayClass.typeWith(elementType)
+        return generateBody(function, arrayType) { container ->
+            val elements = container.members.map { it.toIrConst(elementType) }.toList()
+            irVararg(elementType, elements)
         }
     }
 }

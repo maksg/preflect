@@ -6,6 +6,18 @@ FILE: simple.kt
             super<R|kotlin/Any|>()
         }
 
+        public final inline fun <reified T> name(): R|kotlin/String| {
+            ^name when (<getClass>(R|T|)) {
+                ==($subj$, <getClass>(Q|kotlin/Double|)) ->  {
+                    String(kotlin.Double)
+                }
+                else ->  {
+                    R|kotlin/error|(String(Not implemented))
+                }
+            }
+
+        }
+
         public final inline fun <reified T> members(): R|kotlin/Array<kotlin/String>| {
             ^members when (<getClass>(R|T|)) {
                 ==($subj$, <getClass>(Q|kotlin/Double|)) ->  {
@@ -45,19 +57,32 @@ FILE: simple.kt
         }
 
     }
-    @R|com/maksg/preflect/runtime/annotation/PreflectSearchTypes|() public final inline fun <reified T> staticTypeOf(): R|kotlin/collections/List<kotlin/String>| {
-        ^staticTypeOf R|foo/bar/Preflect.Preflect|().R|foo/bar/Preflect.members|<R|T|>().R|kotlin/collections/toList|<R|kotlin/String|>()
+    @R|com/maksg/preflect/runtime/annotation/PreflectSearchTypes|() public final inline fun <reified T> staticNameOf(): R|kotlin/String| {
+        ^staticNameOf R|foo/bar/Preflect.Preflect|().R|foo/bar/Preflect.name|<R|T|>()
+    }
+    @R|com/maksg/preflect/runtime/annotation/PreflectSearchTypes|() public final inline fun <reified T> staticMembersOf(): R|kotlin/collections/List<kotlin/String>| {
+        ^staticMembersOf R|foo/bar/Preflect.Preflect|().R|foo/bar/Preflect.members|<R|T|>().R|kotlin/collections/toList|<R|kotlin/String|>()
     }
     public final fun box(): R|kotlin/String| {
-        lval expectedList: R|kotlin/collections/List<kotlin/String>| = R|kotlin/collections/listOf|<R|kotlin/String|>(vararg(String(number), String(text), String(list), String(count), String(info), String(equals), String(hashCode), String(toString)))
-        R|kotlin/io/println|(R|foo/bar/staticTypeOf|<R|kotlin/Double|>().R|SubstitutionOverride<kotlin/collections/List.get: R|kotlin/String|>|(Int(0)))
-        lval members: R|kotlin/collections/List<kotlin/String>| = R|foo/bar/staticTypeOf|<R|foo/bar/Example|>()
-        ^box when () {
-            ==(R|<local>/members|, R|<local>/expectedList|) ->  {
-                String(OK)
+        lval expectedName: R|kotlin/String| = String(kotlin.collections.Map<kotlin.Double, kotlin.collections.List<foo.bar.Example>>)
+        lval expectedMembers: R|kotlin/collections/List<kotlin/String>| = R|kotlin/collections/listOf|<R|kotlin/String|>(vararg(String(number), String(text), String(list), String(count), String(info), String(equals), String(hashCode), String(toString)))
+        R|kotlin/io/println|(R|foo/bar/staticMembersOf|<R|kotlin/Double|>().R|SubstitutionOverride<kotlin/collections/List.get: R|kotlin/String|>|(Int(0)))
+        lval name: R|kotlin/String| = R|foo/bar/staticNameOf|<R|kotlin/collections/Map<kotlin/Double, kotlin/collections/List<foo/bar/Example>>|>()
+        lval members: R|kotlin/collections/List<kotlin/String>| = R|foo/bar/staticMembersOf|<R|foo/bar/Example|>()
+        when () {
+            ==(R|<local>/name|, R|<local>/expectedName|) ->  {
+                when () {
+                    ==(R|<local>/members|, R|<local>/expectedMembers|) ->  {
+                        ^box String(OK)
+                    }
+                    else ->  {
+                        ^box <strcat>(String(Fail members: actual = ), R|<local>/members|, String( expected = ), R|<local>/expectedMembers|)
+                    }
+                }
+
             }
             else ->  {
-                <strcat>(String(Fail: actual = ), R|<local>/members|, String( expected = ), R|<local>/expectedList|)
+                ^box <strcat>(String(Fail name: actual = ), R|<local>/name|, String( expected = ), R|<local>/expectedName|)
             }
         }
 

@@ -24,7 +24,7 @@ repositories {
 }
 
 preflect {
-    function = "replacedTypeOf"
+    function = "replacedMembersOf"
     replace = true
 }
 
