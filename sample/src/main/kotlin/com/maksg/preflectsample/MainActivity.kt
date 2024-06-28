@@ -21,6 +21,7 @@ class Preflect {
         Example::class -> "kotlin.Example"
         else -> error("Not implemented")
     }
+
     inline fun <reified T> members(): Array<String> = when (T::class) {
         Double::class -> arrayOf("kotlin.Double", "kotlin.Double2")
         Example::class -> arrayOf("kotlin.Example", "kotlin.Example2")

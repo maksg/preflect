@@ -25,6 +25,7 @@ import org.jetbrains.kotlin.ir.symbols.IrClassifierSymbol
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.types.typeWith
+import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitorVoid
 import org.jetbrains.kotlin.ir.visitors.acceptChildrenVoid
@@ -36,6 +37,12 @@ class PreflectTypesIrBodyGenerator(
     private val membersFunctionNames: List<Name>,
     private val containers: List<PreflectClassContainer>
 ) : IrElementVisitorVoid {
+    companion object {
+        private val PREFLECT_CLASS_ID = Name.identifier("Preflect")
+        private val NAME_FUNCTION_ID = Name.identifier("name")
+        private val MEMBERS_FUNCTION_ID = Name.identifier("members")
+    }
+
     private val irBuiltIns = context.irBuiltIns
 
     override fun visitFile(declaration: IrFile) {
@@ -47,9 +54,10 @@ class PreflectTypesIrBodyGenerator(
     }
 
     override fun visitSimpleFunction(declaration: IrSimpleFunction) {
-        if (nameFunctionNames.contains(declaration.name)) {
+        val isPreflectClassMember = declaration.parent.kotlinFqName.shortName() == PREFLECT_CLASS_ID
+        if ((nameFunctionNames.contains(declaration.name) && !isPreflectClassMember) || (declaration.name == NAME_FUNCTION_ID && isPreflectClassMember)) {
             declaration.body = generateNameBody(declaration)
-        } else if (membersFunctionNames.contains(declaration.name)) {
+        } else if ((membersFunctionNames.contains(declaration.name) && !isPreflectClassMember) || (declaration.name == MEMBERS_FUNCTION_ID && isPreflectClassMember)) {
             declaration.body = generateMembersBody(declaration)
         }
     }
